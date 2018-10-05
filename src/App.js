@@ -25,7 +25,7 @@ class App extends Component {
   renderComplaintsMenu = () => {
     const complaints = this.state.complaints.map((complaint, index) => {
       return (
-        <Table.Row key={index}>
+        <Table.Row key={index} disabled={(complaint.status === "closed")}>
           <Table.Cell>{index+1}</Table.Cell>
           <Table.Cell>{complaint.title}</Table.Cell>
           <Table.Cell>{complaint.description}</Table.Cell>
@@ -129,10 +129,10 @@ class App extends Component {
           </Menu>
         </div>
 
+        {/* Meru Body Section */}
         <div style={styles.menuBody}>
           {this.renderBody()}
         </div>
-
       </div>
     );
   }
