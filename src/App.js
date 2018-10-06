@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Button, Menu, TextArea, Table, Label } from 'semantic-ui-react';
+import { Button, Menu, TextArea, Table, } from 'semantic-ui-react';
 import axios from 'axios';
 import { env } from './env';
 
@@ -34,7 +34,7 @@ class App extends Component {
               (complaint.replay) ? 
               complaint.replay : 
               <div>
-                <TextArea autoHeight style={styles.tableTextArea}/>
+                <TextArea rows="2" autoHeight style={styles.tableTextArea}/>
                 <br/>
                 <Button size="small" fluid>Replay</Button>
               </div>
