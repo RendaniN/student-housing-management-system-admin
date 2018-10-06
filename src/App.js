@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Button, Menu, TextArea, Table, } from 'semantic-ui-react';
+import { Button, Menu, TextArea, Table, Form, } from 'semantic-ui-react';
 import axios from 'axios';
+import qs from 'querystring';
 import { env } from './env';
+import ComplaintRow from './components/ComponentRow';
 
 class App extends Component {
   state = { 
@@ -14,39 +16,23 @@ class App extends Component {
   handleNaveItemClick = (e, { name }) => this.setState({ navActiveItem: name })
   handleMenuItemClick = (e, { name }) => this.setState({ menuActiveItem: name })
 
-  async componentWillMount() {
-      const complaints = await axios.post(`${env.url}/getAllComplaints`);
-      this.setState({
-        complaints: complaints.data,
-      });
-      console.log(this.state);
+  componentWillMount() {
+    this.fetchStuff();
   }
 
+  fetchStuff = async () => {
+    const complaints = await axios.post(`${env.url}/getAllComplaints`);
+    this.setState({
+      complaints: complaints.data,
+    });
+    console.log(this.state);
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////// Complaint Menu
   renderComplaintsMenu = () => {
-    const complaints = this.state.complaints.map((complaint, index) => {
+    const complaints = this.state.complaints.map((complaint) => {
       return (
-        <Table.Row key={index} disabled={(complaint.status === "closed")}>
-          <Table.Cell>{index+1}</Table.Cell>
-          <Table.Cell>{complaint.title}</Table.Cell>
-          <Table.Cell>{complaint.description}</Table.Cell>
-          <Table.Cell>
-            {
-              (complaint.replay) ? 
-              complaint.replay : 
-              <div>
-                <TextArea rows="2" autoHeight style={styles.tableTextArea}/>
-                <Button size="small" fluid>Replay</Button>
-              </div>
-            }
-          </Table.Cell>
-          <Table.Cell>
-            {
-              (complaint.status === "open") ?
-              <Button inverted size="large" color="red">Close</Button> :
-              <Button inverted size="large" disabled color="red">Closed</Button>
-            }
-          </Table.Cell>
-        </Table.Row>
+        <ComplaintRow complaint={complaint} key={complaint.id} fetchStuff={this.fetchStuff} />
       );
     })
     return (
@@ -66,6 +52,7 @@ class App extends Component {
       </Table>
     );
   }
+  ////////////////////////////////////////////////////////////////////////////////////// END Complaint Menu
 
   renderMaintenanceMenu = () => {
     return (
