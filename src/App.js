@@ -35,7 +35,6 @@ class App extends Component {
               complaint.replay : 
               <div>
                 <TextArea rows="2" autoHeight style={styles.tableTextArea}/>
-                <br/>
                 <Button size="small" fluid>Replay</Button>
               </div>
             }
