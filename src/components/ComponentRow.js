@@ -29,9 +29,11 @@ class ComplaintRow extends Component {
     const { complaint } = this.props;
     return(
       <Table.Row key={complaint.id} disabled={(complaint.status === "closed")}>
-        <Table.Cell>{complaint.id}</Table.Cell>
-        <Table.Cell>{complaint.title}</Table.Cell>
+        <Table.Cell><h4>{complaint.id}</h4></Table.Cell>
+        <Table.Cell><h3>{complaint.title}</h3></Table.Cell>
         <Table.Cell>{complaint.description}</Table.Cell>
+        <Table.Cell>{complaint.created_at}</Table.Cell>
+        <Table.Cell>{complaint.student.name}</Table.Cell>
         <Table.Cell>
           {
             (complaint.replay) ? 

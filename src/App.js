@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Button, Menu, TextArea, Table, Form, } from 'semantic-ui-react';
+import { Button, Menu, Table, } from 'semantic-ui-react';
 import axios from 'axios';
-import qs from 'querystring';
 import { env } from './env';
 import ComplaintRow from './components/ComponentRow';
 
@@ -42,6 +41,8 @@ class App extends Component {
             <Table.HeaderCell>ID</Table.HeaderCell>
             <Table.HeaderCell>Title</Table.HeaderCell>
             <Table.HeaderCell>Description</Table.HeaderCell>
+            <Table.HeaderCell>Date</Table.HeaderCell>
+            <Table.HeaderCell>By</Table.HeaderCell>
             <Table.HeaderCell>Replay</Table.HeaderCell>
             <Table.HeaderCell>Status</Table.HeaderCell>
           </Table.Row>
