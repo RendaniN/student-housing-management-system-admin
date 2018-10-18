@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Button, Menu, Table, } from 'semantic-ui-react';
+import { Button, Menu, Table, Container, Form, Header } from 'semantic-ui-react';
 import axios from 'axios';
+import qs from 'querystring';
 import { env } from './env';
 import ComplaintRow from './components/ComponentRow';
 
 class App extends Component {
   state = { 
     navActiveItem: 'home',
-    menuActiveItem: 'complaints',
+    menuActiveItem: 'create student',
+    studentName: '',
+    studentEmail: '',
+    studentPassword: '',
+    creatingStudentAccount: false,
     complaints: [],
   }
 
@@ -25,6 +30,28 @@ class App extends Component {
       complaints: complaints.data,
     });
     console.log(this.state);
+  }
+
+  createStudnet = async (e) => {
+    e.preventDefault();
+    const name = this.state.studentName;
+    const email = this.state.studentEmail;
+    const password = this.state.studentPassword;
+    const password_confirmation = this.state.studentPassword;
+    this.setState({creatingStudentAccount: true});
+    axios.post(`${env.url}/createStudentAccount`, qs.stringify({name, email, password, password_confirmation}))
+    .then(response => {
+      console.log(response.data);
+      this.setState({
+        creatingStudentAccount: false,
+        studentEmail: '',
+        studentName: '',
+        studentPassword: '',
+      });
+    })
+    .catch(error => {
+      console.log(error);
+    })
   }
 
   ////////////////////////////////////////////////////////////////////////////////////// Complaint Menu
@@ -63,7 +90,38 @@ class App extends Component {
 
   renderCreateStudentMenu = () => {
     return (
-      <div>Create Student</div>
+      <Container text textAlign="left">
+        <Header>Create Student Account</Header>
+        <Form onSubmit={this.createStudnet}>
+          <Form.Field>
+            <label>Name</label>
+            <input 
+            placeholder='Name' 
+            value={this.state.studentName} 
+            onChange={e => {this.setState({studentName: e.target.value})}} 
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Email</label>
+            <input 
+            placeholder='Email' 
+            type="email" 
+            value={this.state.studentEmail} 
+            onChange={e => {this.setState({studentEmail: e.target.value})}} 
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Password</label>
+            <input 
+            placeholder='Password' 
+            type="password" 
+            value={this.state.studentPassword} 
+            onChange={e => {this.setState({studentPassword: e.target.value})}} 
+            />
+          </Form.Field>
+          <Button loading={this.state.creatingStudentAccount} primary type='submit'>Create Student</Button>
+        </Form>
+      </Container>
     );
   }
 
