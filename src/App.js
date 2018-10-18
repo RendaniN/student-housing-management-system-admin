@@ -5,11 +5,13 @@ import axios from 'axios';
 import qs from 'querystring';
 import { env } from './env';
 import ComplaintRow from './components/ComponentRow';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class App extends Component {
   state = { 
     navActiveItem: 'home',
-    menuActiveItem: 'create student',
+    menuActiveItem: 'complaints',
     studentName: '',
     studentEmail: '',
     studentPassword: '',
@@ -48,9 +50,25 @@ class App extends Component {
         studentName: '',
         studentPassword: '',
       });
+      toast.success('New student has been created', {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     })
     .catch(error => {
-      console.log(error);
+      this.setState({creatingStudentAccount: false});
+      toast.error(`${error}`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     })
   }
 
@@ -178,6 +196,7 @@ class App extends Component {
         <div style={styles.menuBody}>
           {this.renderBody()}
         </div>
+        <ToastContainer />
       </div>
     );
   }

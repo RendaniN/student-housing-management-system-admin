@@ -3,6 +3,8 @@ import { Table, TextArea, Button, Form } from 'semantic-ui-react';
 import axios from 'axios';
 import qs from 'querystring';
 import { env } from '../env';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class ComplaintRow extends Component {
   state = {
@@ -13,7 +15,14 @@ class ComplaintRow extends Component {
     axios.post(`${env.url}/closeComplaint`, qs.stringify({ complaint_id: this.props.complaint.id }))
     .then((response) =>{
       this.props.fetchStuff();
-      console.log('ok')
+      toast.success('Complaint has been closed', {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     });
   }
 
@@ -21,7 +30,14 @@ class ComplaintRow extends Component {
     axios.post(`${env.url}/replayToComplaint`, qs.stringify({ complaint_id: this.props.complaint.id, replay: this.state.replay }))
     .then((response) =>{
       this.props.fetchStuff();
-      console.log('ok')
+      toast.success('Reply submitted to the complaint', {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     });
   }
 
