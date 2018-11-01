@@ -5,7 +5,7 @@ import axios from 'axios';
 import qs from 'querystring';
 import { env } from './env';
 import ComplaintRow from './components/ComponentRow';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 class App extends Component {
