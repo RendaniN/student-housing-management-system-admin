@@ -5,7 +5,7 @@ import axios from 'axios';
 import qs from 'querystring';
 import { env } from './env';
 import ComplaintRow from './components/ComponentRow';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 class App extends Component {
@@ -22,7 +22,8 @@ class App extends Component {
   handleNaveItemClick = (e, { name }) => this.setState({ navActiveItem: name })
   handleMenuItemClick = (e, { name }) => this.setState({ menuActiveItem: name })
 
-  componentWillMount() {
+  async componentWillMount() {
+
     this.fetchStuff();
   }
 
