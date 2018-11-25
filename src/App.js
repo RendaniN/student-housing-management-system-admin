@@ -4,9 +4,10 @@ import { Button, Menu } from 'semantic-ui-react';
 import axios from 'axios';
 import { env } from './env';
 import CreateStudentTap from './components/CreateStudentTap';
+import ComplaintsTap from './components/ComplaintsTap';
+import MaintenanceRequestsTap from './components/MaintenanceRequestsTap';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ComplaintsTap from './components/ComplaintsTap';
 
 class App extends Component {
   state = { 
@@ -17,6 +18,7 @@ class App extends Component {
     studentPassword: '',
     creatingStudentAccount: false,
     complaints: [],
+    requests: [],
   }
 
   handleNaveItemClick = (e, { name }) => this.setState({ navActiveItem: name })
@@ -27,9 +29,11 @@ class App extends Component {
   }
 
   fetchStuff = async () => {
+    const requests = await axios.post(`${env.url}/getAllMaintenanceRequests`);
     const complaints = await axios.post(`${env.url}/getAllComplaints`);
     this.setState({
       complaints: complaints.data,
+      requests: requests.data,
     });
     console.log(this.state);
   }
@@ -43,7 +47,7 @@ class App extends Component {
   renderBody = () => {
     switch (this.state.menuActiveItem) {
       case 'maintenance requests':
-        return this.renderMaintenanceMenu();
+        return <MaintenanceRequestsTap state={this.state} setState={(state) => {this.setState(state)}} fetchStuff={this.fetchStuff}/>
       case 'create student': 
         return <CreateStudentTap state={this.state} setState={(state) => {this.setState(state)}} />
       default: 
