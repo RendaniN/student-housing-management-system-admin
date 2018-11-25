@@ -20,7 +20,8 @@ class MaintenanceRequests extends Component {
             <Table.HeaderCell>Description</Table.HeaderCell>
             <Table.HeaderCell>Date</Table.HeaderCell>
             <Table.HeaderCell>By</Table.HeaderCell>
-            <Table.HeaderCell>Status</Table.HeaderCell>
+            <Table.HeaderCell>State</Table.HeaderCell>
+            <Table.HeaderCell>Change State</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
