@@ -10,6 +10,7 @@ import { request } from 'https';
 class MaintenanceRequestRow extends Component {
 
   closeRequest = () => {
+    axios.post(`${env.url}/closeMaintenanceRequest`, qs.stringify({ request_id: this.props.request.id }))
     .then(() =>{
       this.props.fetchStuff();
       toast.success('Request has been closed', {
