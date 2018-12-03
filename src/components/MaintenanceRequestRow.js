@@ -24,6 +24,21 @@ class MaintenanceRequestRow extends Component {
     });
   }
 
+  markRequestAsInProcess = () => {
+    axios.post(`${env.url}/setMaintenanceRequestAsInProcess`, qs.stringify({ request_id: this.props.request.id }))
+    .then(() =>{
+      this.props.fetchStuff();
+      toast.success('Request is in process', {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    });
+  }
+
   renderStatusButtons = () => {
     const { request } = this.props;
     if (request.status === 'open') {
@@ -46,7 +61,10 @@ class MaintenanceRequestRow extends Component {
       );
     } else if (request.status === 'in_process') {
       return (
-        <Button negative>
+        <Button 
+          negative
+          onClick={this.closeRequest}
+        >
           Close 
         </Button>
       );
