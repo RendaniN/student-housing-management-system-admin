@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 importScripts(
-  "/student-housing-management-system-admin/precache-manifest.0b8e5c82a526029cc22486fc798327b7.js"
+  "/student-housing-management-system-admin/precache-manifest.ac23bdb734ec1b0a1bef03ca1f2c8f81.js"
 );
 
 workbox.clientsClaim();
